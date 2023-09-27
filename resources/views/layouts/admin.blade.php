@@ -52,7 +52,7 @@
                 <div class="mt-5 flex-1 h-0 overflow-y-auto">
                     <nav class="px-2 space-y-1">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="{{ route('dashboard') }}"
+                        <a href="{{ route('admin.dashboard') }}"
                             class="hover:bg-gray-700 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md active:bg-gray-900">
 
                             <svg class="text-gray-300 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +143,7 @@
                 <div class="flex-1 flex flex-col overflow-y-auto">
                     <nav class="flex-1 px-2 py-4 space-y-1">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="{{ route('dashboard') }}"
+                        <a href="{{ route('admin.dashboard') }}"
                             class="hover:bg-gray-700 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md active:bg-gray-900">
 
                             <svg class="text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg"

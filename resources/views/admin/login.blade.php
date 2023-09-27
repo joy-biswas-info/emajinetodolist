@@ -7,12 +7,13 @@
         </div>
         <div class="mt-4">
             <p class="text-center text-lg">Sign in to start your session</p>
-            <form action="dashboard.html" method="post">
+            <form action="{{ route('admin.authentication') }}" method="post">
+                @csrf
                 <div class="mb-4">
                     <div class="relative">
                         <input type="email"
                             class="border rounded-md w-full py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                            placeholder="Email">
+                            placeholder="Email" name="email">
                         <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
                             <span class="fas fa-envelope text-gray-400"></span>
                         </div>
@@ -22,7 +23,7 @@
                     <div class="relative">
                         <input type="password"
                             class="border rounded-md w-full py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                            placeholder="Password">
+                            placeholder="Password" name="password">
                         <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
                             <span class="fas fa-lock text-gray-400"></span>
                         </div>
