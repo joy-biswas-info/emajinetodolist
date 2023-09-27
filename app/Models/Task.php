@@ -14,4 +14,8 @@ class Task extends Model
         'project_id',
         'user_id',
     ];
+    public function taskImage()
+    {
+        return $this->hasMany(TaskImage::class);
+    }
 }

@@ -20,7 +20,7 @@
                             </div>
                             <h2 class="text-white font-bold text-2xl">{{ $project->project_title }}</h2>
                             <button class="btn dark:bg-white px-4 py-2 rounded my-2"><a
-                                    href="{{ route('task.add', $project->id) }}">Add Taskq</a></button>
+                                    href="{{ route('task.add', $project->id) }}">Add Task</a></button>
 
                         </li>
                     @endforeach

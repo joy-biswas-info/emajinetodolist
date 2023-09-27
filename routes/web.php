@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/', [TaskController::class, 'index']);
     Route::post('/tasks/update-order', [TaskController::class, 'updateOrder']);
-    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::post('/tasks', [TaskController::class, 'store'])->name('add.task');
     Route::post('/tasks/toggle-completion/{id}', [TaskController::class, 'toggleCompletion']);
     Route::post('/upload-temp-image', [TempImageController::class, 'index'])->name('temp-images.create');
 });
@@ -44,3 +44,4 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

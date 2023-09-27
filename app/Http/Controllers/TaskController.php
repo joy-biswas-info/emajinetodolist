@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\TaskImage;
+use App\Models\TempImage;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Image;
 
 class TaskController extends Controller
 {
@@ -21,15 +24,40 @@ class TaskController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $task = Task::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'project_id' => $request->input('project_id'),
-            'order' => Task::count(),
-            // Set the order to the end of the list
-        ]);
+        if (!$request->image_array) {
+            $task = Task::create([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'project_id' => $request->input('project_id'),
+                'order' => Task::count(),
+            ]);
+        } else {
+            $task = Task::create([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'project_id' => $request->input('project_id'),
+                'order' => Task::count(),
+            ]);
+            foreach ($request->image_array as $tepm_image_id) {
+                $tempImage = TempImage::find($tepm_image_id);
+                $extArray = explode('.', $tempImage->name);
+                $ext = last($extArray);
+                $newImageName = $tepm_image_id . '_' . time() . '.' . $ext;
+                $sPath = public_path() . '/temp/' . $tempImage->name;
+                $dPath = public_path() . '/uploads/task/image/' . $newImageName;
+                $img = Image::make($sPath);
+                $img->save($dPath);
+                $taskImage = new TaskImage([
+                    'task_id' => $task->id,
+                    'image' => '/uploads/task/image/' . $newImageName
+                ]);
+                $taskImage->save();
+            }
 
-        return response()->json(['message' => 'Task created successfully', 'task' => $task]);
+        }
+
+
+        return back()->with('success', 'Task added successfully');
     }
     public function updateOrder(Request $request)
     {
