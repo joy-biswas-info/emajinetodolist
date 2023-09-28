@@ -30,6 +30,7 @@ class TaskController extends Controller
                 'description' => $request->input('description'),
                 'project_id' => $request->input('project_id'),
                 'order' => Task::count(),
+                'user_id' => $request->input('user_id')
             ]);
         } else {
             $task = Task::create([
@@ -37,6 +38,7 @@ class TaskController extends Controller
                 'description' => $request->input('description'),
                 'project_id' => $request->input('project_id'),
                 'order' => Task::count(),
+                'user_id' => $request->input('user_id')
             ]);
             foreach ($request->image_array as $tepm_image_id) {
                 $tempImage = TempImage::find($tepm_image_id);

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
 
     <div>
         <h1 class="text-2xl dark:text-white text-center font-bold my-4">Create New Project</h1>
@@ -12,12 +12,17 @@
                 class="block w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 name="project_title" placeholder="Project Title" required>
         </div>
-
+        @error('project_title')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
         <div class="mb-4">
             <textarea
                 class="block w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                 name="project_description" placeholder="Project Description"></textarea>
         </div>
+        @error('project_description')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
         <div class="mb-4">
             <select name="user_id" id="user-id"
                 class="block w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
@@ -29,6 +34,9 @@
                 @endif
             </select>
         </div>
+        @error('user_id')
+            <div class="text-red-500">Please select an User</div>
+        @enderror
         <div class="col-md-6">
             <label for="image">Image</label>
             <div class="mb-3">
@@ -41,6 +49,9 @@
             <input type="hidden" value="" name="image_id" id="image_id">
 
         </div>
+        @error('image_id')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
         <div class="text-right">
             <button type="submit"
                 class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-white dark:text-gray-700 dark:hover:text-gray-900">Create
@@ -74,4 +85,4 @@
             }
         });
     </script>
-</x-app-layout>
+</x-admin-layout>

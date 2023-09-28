@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('project_title');
             $table->string('project_description')->nullable();
-            $table->string('project_image')->nullable();
-            $table->foreignId('user_id');
+            $table->string('project_image');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

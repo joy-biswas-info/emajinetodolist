@@ -9,6 +9,7 @@ use App\Models\TempImage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Image;
+use Validator;
 
 class ProjectController extends Controller
 {
@@ -40,12 +41,14 @@ class ProjectController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'project_title' => 'required|string|max:255',
             'project_description' => 'nullable|string',
+            'user_id' => 'required',
+            'image_id' => 'required'
         ]);
 
-        if ($request->image_id) {
+        if ($validator->passes()) {
             $tempImage = TempImage::find($request->image_id);
             $extArray = explode('.', $tempImage->name);
             $ext = last($extArray);
@@ -59,15 +62,22 @@ class ProjectController extends Controller
                 $constraint->upsize();
             });
             $img->save($dPath);
+            $project = new Project([
+                'project_title' => $request->input('project_title'),
+                'project_description' => $request->input('project_description'),
+                'project_image' => '/uploads/project/thumb/' . $newImageName,
+                'user_id' => $request->input('user_id'),
+            ]);
+            $project->save();
+
+
+
+            return redirect()->route('project.index')->with('success', 'Project created successfully');
+        } else {
+            return back()->withErrors($validator)->withInput();
         }
 
-        $project = Project::create([
-            'project_title' => $request->input('project_title'),
-            'project_description' => $request->input('project_description'),
-            'project_image' => '/uploads/project/thumb/' . $newImageName
-        ]);
 
-        return back()->with('success', 'Project created successfully');
     }
 
     public function distroy($id, Request $request)

@@ -104,7 +104,10 @@
             </div>
             <input type="hidden"
                 class="block w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                name="project_id" placeholder="Project Id" required value="{{ $project->id }}">
+                name="project_id" placeholder="Project Id" required value="{{ $project->id }}" />
+            <input type="hidden"
+                class="block w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                name="user_id" placeholder="Project Id" required value="{{ $project->user_id }}" />
 
             <div class="mb-4">
                 <textarea name="description" id="summernote" class="dark:bg-white"></textarea>
@@ -177,11 +180,11 @@
             // Create a loading indicator element
             var loadingIndicator = document.createElement('div');
             loadingIndicator.innerHTML = `<button type="button" class="bg-indigo-500 ..." disabled>
-  <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-    <!-- ... -->
-  </svg>
-  Processing...
-</button>`;
+                                        <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                                            <!-- ... -->
+                                        </svg>
+                                        Processing...
+                                        </button>`;
 
             // Append the loading indicator to the 'loading' element
             document.getElementById(`loading-${taskId}`).appendChild(loadingIndicator);

@@ -26,6 +26,7 @@
 
 <body class="font-sans antialiased dark:bg-gray-900">
     <div class="dark:bg-gray-900">
+
         <div class="fixed inset-0 flex z-40 md:hidden pt-4" role="dialog" aria-modal="true">
 
             <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true"></div>
@@ -213,11 +214,53 @@
                             </svg>
                             Reports
                         </a>
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">
+                                {{ Auth::user()->name }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                        </div>
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-responsive-nav-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-responsive-nav-link>
+                        </form>
+
                     </nav>
                 </div>
             </div>
         </div>
         <div class="md:pl-64 flex flex-col pt-4">
+            {{-- Session Message --}}
+            <div class="session-message">
+                @if (session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                        role="alert">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                        role="alert">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <span class="block sm:inline">{{ session('error') }}</span>
+                    </div>
+                @endif
+
+                @if (session('info'))
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
+                        role="alert">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <span class="block sm:inline">{{ session('info') }}</span>
+                    </div>
+                @endif
+            </div>
             <main class="flex-1 mx-4">
                 {{ $slot }}
             </main>

@@ -18,9 +18,9 @@ class AdminAuthenticate extends Middleware
     protected function authenticate($request, array $guards)
     {
 
-        if ($this->auth->guard('admins')->check()) {
-            return $this->auth->shouldUse('admins');
+        if ($this->auth->guard('admin')->check()) {
+            return $this->auth->shouldUse('admin');
         }
-        $this->unauthenticated($request, ['admins']);
+        $this->unauthenticated($request, ['admin']);
     }
 }

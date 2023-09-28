@@ -21,14 +21,24 @@ class AdminLoginController extends Controller
         ]);
 
         if ($validator->passes()) {
-            if (Auth::guard('admins')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-                return redirect()->route('admin.dashboard');
+            if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+                $admin = Auth::guard('admin')->user();
+                if ($admin->role == 3) {
+                    return redirect()->route('admin.dashboard');
+                } else {
+                    $admin = Auth::guard('admin')->logout();
+                    return redirect()->route('login')->with('error', 'You are not an admin');
+                }
+
+            } else {
+                return back()->with('errors', 'Wrong credentials');
+
             }
             ;
         } else {
-            dd('user not found');
 
-            // return back()->with('errors', 'Wrong credentials');
+            return back()->with('errors', 'Wrong credentials');
         }
 
     }
