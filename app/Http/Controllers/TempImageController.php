@@ -28,4 +28,10 @@ class TempImageController extends Controller
         }
 
     }
+
+    public function allImages(Request $request)
+    {
+        $images = TempImage::get();
+
+    }
 }

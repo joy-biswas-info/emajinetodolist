@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ProjectController;
+use App\Http\Controllers\admin\TaskController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
@@ -26,9 +27,20 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
         Route::get('/create-project', [ProjectController::class, 'create'])->name('project.create');
         Route::post('/create-project', [ProjectController::class, 'store'])->name('project.store');
-        Route::get('/add-task/{project}', [ProjectController::class, 'addTask'])->name('task.add');
         Route::delete('/projects/{project}', [ProjectController::class, 'distroy'])->name('project.delete');
+
         Route::get('/users', [UserController::class, 'index'])->name('user.index');
+
         Route::post('/upload-temp-image', [TempImageController::class, 'index'])->name('temp-images.create');
+        // Task Routes 
+        Route::get('/add-task/{project}', [TaskController::class, 'create'])->name('task.add');
+        Route::get('/delete-task/{task}', [TaskController::class, 'distroy'])->name('task.delete');
+        Route::post('/tasks/update-order', [TaskController::class, 'updateOrder']);
+        Route::post('/tasks', [TaskController::class, 'store'])->name('add.task');
+        Route::post('/tasks/toggle-completion/{id}', [TaskController::class, 'toggleCompletion']);
+        Route::post('/upload-temp-image', [TempImageController::class, 'index'])->name('temp-images.create');
+
+
+        Route::delete('/delete-user/{user}', [UserController::class, 'distroy'])->name('delete.user');
     });
 });

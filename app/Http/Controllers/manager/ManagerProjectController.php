@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Task;
 use App\Models\TempImage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Image;
-use Validator;
 
-class ProjectController extends Controller
+class ManagerProjectController extends Controller
 {
     public function index()
     {
@@ -20,16 +19,14 @@ class ProjectController extends Controller
                 $query->where('completed', true);
             }
         ])->paginate(15);
-        return View('admin.project.index', compact('projects'));
-
-
+        return View('manager.projects.index', compact('projects'));
     }
 
 
     public function create()
     {
         $users = User::latest('id', 'ASC')->get();
-        return View('admin.project.create', compact('users'));
+        return View('manager.projects.create', compact('users'));
     }
     public function store(Request $request)
     {

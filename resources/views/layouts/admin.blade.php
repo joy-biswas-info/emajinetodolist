@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
-    <link href="{{ asset('plugins/summernote/summernote-lite.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/summernote/summernote-lite.min.css') }}" rel="stylesheet">
     <script src="{{ asset('plugins/summernote/summernote-lite.min.js') }}"></script>
 
 
@@ -137,9 +137,7 @@
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex-1 flex flex-col min-h-0 bg-gray-800">
                 <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900">
-                    <img class="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                        alt="Workflow">
+                    <img class="h-8 w-auto" src="{{ asset('logo.png') }}" alt="Workflow">
                 </div>
                 <div class="flex-1 flex flex-col overflow-y-auto">
                     <nav class="flex-1 px-2 py-4 space-y-1">

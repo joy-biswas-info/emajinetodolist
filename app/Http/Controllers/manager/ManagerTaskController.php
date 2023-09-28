@@ -1,22 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\manager;
 
+use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\TaskImage;
-use App\Models\TempImage;
-use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\TaskImage;
+use Illuminate\Http\Request;
 use Image;
 
-class TaskController extends Controller
+class ManagerTaskController extends Controller
 {
 
     public function index()
     {
         $tasks = Task::orderBy('order')->get();
-        return view('tasks.index', compact('tasks'));
+        return view('manager.tasks.index', compact('tasks'));
     }
+
+
+
+    public function create($id, Request $request)
+    {
+        $project = Project::find($id);
+        if (empty($project)) {
+            return back()->withErrors('error', 'No record found');
+        }
+        $userId = Auth()->user()->id;
+        $projectId = $project->id;
+
+        $tasks = Task::where('project_id', $projectId)->where('user_id', $userId)
+            ->orderBy('order')
+            ->get();
+        return View('manager.tasks.index', compact(['tasks', 'project']));
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -57,8 +76,6 @@ class TaskController extends Controller
             }
 
         }
-
-
         return back()->with('success', 'Task added successfully');
     }
     public function updateOrder(Request $request)

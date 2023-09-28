@@ -13,4 +13,16 @@ class UserController extends Controller
         $users = User::paginate(10);
         return View('admin.user.index', compact('users'));
     }
+    public function distroy($id, Request $request)
+    {
+
+        $user = User::find($id);
+        if (empty($user)) {
+            return back()->withErrors('error', 'No user exist');
+        } else {
+            $user->delete();
+            return redirect()->route('user.index')->with('success', 'User deleted');
+        }
+
+    }
 }
